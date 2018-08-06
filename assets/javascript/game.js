@@ -15,8 +15,11 @@ var reset = function () {
     updateguessesSoFar();
 };
 
-var initialize = function() {
-    randomLetter = letters[Math.floor(Math.random() * letters.length)];
+var initialize = function () {
+    if (guessesLeft === 9) {
+        randomLetter = letters[Math.floor(Math.random() * letters.length)];
+        console.log("rando =" + randomLetter)
+    }
 };
 var updateguessesLeft = function () {
     document.getElementById("guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
@@ -34,21 +37,14 @@ document.onkeyup = function (event) {
     updateguessesSoFar();
     if (letterGuessed === randomLetter) {
         var msg2 = winmessage.concat(randomLetter);
-        alert (msg2);
-        reset();
-        wins++;
+        alert(msg2) + reset() + wins++;
         $("#wins").text("Player: " + wins);
-    } else if (letterGuessed !== randomLetter) {
-        updateguessesLeft();
     }
+
     if (guessesLeft < 0) {
         var msg = errormessage.concat(randomLetter);
-        alert (msg);
-        reset();
-        losses++;
+        alert(msg) + reset() + losses++;
         $("#losses").text("Psychic: " + losses);
-    } else {
-        updateguessesLeft();
     }
-   
+
 }
